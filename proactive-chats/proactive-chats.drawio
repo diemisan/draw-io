@@ -1,0 +1,169 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3" pages="3">
+  <diagram name="Page-1" id="lva2ObN_vfbjfojzGM9K">
+    <mxGraphModel dx="1426" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FlVJRO36vgapYi43x2Sl-1" value="Bocato" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlVJRO36vgapYi43x2Sl-2" value="BI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlVJRO36vgapYi43x2Sl-3" value="Intercom" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlVJRO36vgapYi43x2Sl-4" value="SAGA" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="180" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="FlVJRO36vgapYi43x2Sl-5" value="Tableau / Siense" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FlVJRO36vgapYi43x2Sl-7" value="MSP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="355" y="260" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="LEUrQBTZyd_hudZOF2E9" name="Page-2">
+    <mxGraphModel dx="1426" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8-J73k3-8cmla4sYG7ub-1" value="db_business_model.Bocato_NotificationTracking_MSP_Log&#xa;&#xa;db_report.vip_levels_manual_approval_msp_logs" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="460" y="330" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8-J73k3-8cmla4sYG7ub-2" value="&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-227d4bc7-0da0-4147-8615-3935d441f052&quot;&gt;BI cuando tiene un cambio (BI hizo un level UP, esto lo tenemos trackeado)&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-b052e182-a57b-4c2c-a197-dad4e63d03fe&quot;&gt;Bocato - Tracking Bonus granted y manual rewards&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-f171c658-87d9-4d61-87ec-d75077c250e4&quot;&gt;Logs de envío de correos (MSP, ver en DB-REPORT) (si falla no nos enteramos, por eso el hacer el downstream de Xtreme Push)&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-99fda71d-58e0-495c-a0cd-6054f3ea10f7&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-7ca0c7f7-067c-49db-81ae-0adb32433d40&quot;&gt;DAta escribe directamente a Intercom el evento del Level UP. (Tenemos los logs de intercom level ups) (la actualización del perfil con el level también es traqueable)&lt;br&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-1b3191ca-1290-4bc7-8125-2e3cadb718ba&quot;&gt;Trackeo de Level Ups, está en una tabla de business model de BI.&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-59e5b4ab-a08d-4b2b-ba59-adae22749a17&quot;&gt;Columnas bocato, si nos dio un bonus granted o rejected.&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-93c7209b-d295-460d-b6f4-dcae7a992b57&quot;&gt;Estado de eventos enviados por MSP.&lt;/div&gt;&lt;div class=&quot;ql-block&quot; data-block-id=&quot;block-d5df2bd0-ae12-4c0f-bdbe-5b7ccbc4c6ff&quot;&gt;Estado de notificación de intercom.&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="50" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8-J73k3-8cmla4sYG7ub-3" value="db_business_model.customer_vip_level_up" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="460" y="270" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8-J73k3-8cmla4sYG7ub-4" value="db_report.intercom_level_up_events_logs" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="460" y="420" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="C0fqdNBA5JZy4m6iE29E-1" value="&lt;div style=&quot;background-color:#ffffff;padding:0px 0px 0px 2px;&quot;&gt;&lt;div style=&quot;color:#000000;background-color:#ffffff;font-family:&amp;quot;Monospace&amp;quot;;font-size:10pt;white-space:pre;&quot;&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;SELECT&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;customerId&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;brandId&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;brandName&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;levelId&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;levelDescription&lt;/span&gt;,&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;nextLevelId&lt;/span&gt;,&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;createdAt&lt;/span&gt; &lt;span style=&quot;color:#006464;font-style:italic;&quot;&gt;bocatoManualApprovalAt&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;status&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bbg&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;transactionDate&lt;/span&gt; &lt;span style=&quot;color:#006464;font-style:italic;&quot;&gt;bocatoBonusGrantedTransactionDate&lt;/span&gt;,&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;mspl&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;comment&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AS&lt;/span&gt; &lt;span style=&quot;color:#006464;font-style:italic;&quot;&gt;sentToXP&lt;/span&gt;, &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;mspl&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;updatedAt&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AS&lt;/span&gt; &lt;span style=&quot;color:#006464;font-style:italic;&quot;&gt;lastAttemptToSendToXP&lt;/span&gt;,&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;inl&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;createdAt&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AS&lt;/span&gt; &lt;span style=&quot;color:#006464;font-style:italic;&quot;&gt;intercomNotificationSentAt&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;FROM&lt;/span&gt; &lt;span style=&quot;color:#956037;&quot;&gt;db_business_model&lt;/span&gt;.&lt;span style=&quot;color:#8e00c6;&quot;&gt;customer_vip_level_up&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;   &lt;span style=&quot;color:#808080;&quot;&gt;-- ¿Es esta la tabla de BI?&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;LEFT&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;JOIN&lt;/span&gt; &lt;span style=&quot;color:#956037;&quot;&gt;db_data_model&lt;/span&gt;.&lt;span style=&quot;color:#6c5151;&quot;&gt;mv_bocato_bonus_granted&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bbg&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;ON&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bbg&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;customerId&lt;/span&gt; = &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;customerId&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AND&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;levelId&lt;/span&gt; = &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bbg&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;levelId&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;INNER&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;JOIN&lt;/span&gt; &lt;span style=&quot;color:#956037;&quot;&gt;db_data_model&lt;/span&gt;.&lt;span style=&quot;color:#6c5151;&quot;&gt;mv_bocato_manual_approval_reward&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;  &lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;ON&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;customerId&lt;/span&gt; = &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;customerId&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AND&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;levelId&lt;/span&gt; = &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;customerDetailsLevelId&lt;/span&gt;  &lt;span style=&quot;color:#808080;&quot;&gt;-- hay que usar bi.levelId o vi.nextLevelId&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;LEFT&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;JOIN&lt;/span&gt; &lt;span style=&quot;color:#956037;&quot;&gt;db_report&lt;/span&gt;.&lt;span style=&quot;color:#8e00c6;&quot;&gt;vip_levels_manual_approval_msp_logs&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;mspl&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt; &lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;ON&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;mspl&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;_id&lt;/span&gt; = &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;bmar&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;_id&lt;/span&gt; &lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;LEFT&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;JOIN&lt;/span&gt; &lt;span style=&quot;color:#956037;&quot;&gt;db_report&lt;/span&gt;.&lt;span style=&quot;color:#8e00c6;&quot;&gt;intercom_level_up_events_logs&lt;/span&gt; &lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;inl&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;ON&lt;/span&gt; (&lt;span style=&quot;color:#000080;font-weight:bold;&quot;&gt;lcase&lt;/span&gt;(&lt;span style=&quot;color:#8e00c6;font-style:italic;&quot;&gt;inl&lt;/span&gt;.&lt;span style=&quot;color:#006464;&quot;&gt;customerId&lt;/span&gt;) = &lt;span style=&quot;color:#000000;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;customerId&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;AND&lt;/span&gt; &lt;span style=&quot;color:#000000;&quot;&gt;bi&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;levelDescription&lt;/span&gt; = &lt;span style=&quot;color:#000000;&quot;&gt;inl&lt;/span&gt;.&lt;span style=&quot;color:#000000;&quot;&gt;currentLevel&lt;/span&gt;)&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;order&lt;/span&gt; &lt;span style=&quot;color:#800000;font-weight:bold;&quot;&gt;by&lt;/span&gt; &lt;span style=&quot;color:#006464;&quot;&gt;customerId&lt;/span&gt;, &lt;span style=&quot;color:#006464;&quot;&gt;levelId&lt;/span&gt;&lt;span style=&quot;color:#ff0000;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="460" width="560" height="390" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="eMRLlOZFLuCzZ_Ps62h3" name="Page-3">
+    <mxGraphModel dx="2276" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-1" value="Bocato" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-2" value="BI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-3" value="Intercom" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-4" value="SAGA" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="100" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-5" value="Tableau / Siense" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-6" value="MSP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="335" y="180" width="80" height="30" as="geometry" />
+        </mxCell>
+        <object placeholders="1" c4Name="System Context View: Proactive Chats" c4Type="SystemScopeBoundary" c4Application="The system context diagram for Proactive Chats" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-7">
+          <mxCell style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="-220" y="400" width="1210" height="760" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Data Platform" c4Type="Software System" c4Description="SAGA DWH adn RAGE systems" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-8">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#1061B0;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0D5091;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="240" y="760" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="BI" c4Type="Container" c4Technology="SQL Server" c4Description="BI DB that provides the list of customers that got a VIP level UP" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-9">
+          <mxCell style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;rounded=1;labelBackgroundColor=none;fillColor=#8C8496;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#736782;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;verticalAlign=middle;arcSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+            <mxGeometry x="-180" y="460" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Tableau / Sisense" c4Type="Software System" c4Description="Tools to visualize and analyze the data." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-10">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#8C8496;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#736782;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="720" y="760" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Intercom Conversations" c4Type="Software System" c4Description="Intercom system that sends converstation notifications to Data via Webhooks API." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-12">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#8C8496;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#736782;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="-180" y="950" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Bocato Bonus Granted" c4Type="Container" c4Technology="Apache Pulsar" c4Description="Topic that provides the events of customer that will get a bonus for VIP level campaign" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-13">
+          <mxCell style="shape=cylinder3;size=15;direction=south;whiteSpace=wrap;html=1;boundedLbl=1;rounded=1;labelBackgroundColor=none;fillColor=#8C8496;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#736782;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;verticalAlign=middle;arcSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+            <mxGeometry x="-180" y="620" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Bocato Bonus Rejected" c4Type="Container" c4Technology="Apache Pulsar" c4Description="Topic that provides the events of customer that got a rejected bonus for a campaign" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-14">
+          <mxCell style="shape=cylinder3;size=15;direction=south;whiteSpace=wrap;html=1;boundedLbl=1;rounded=1;labelBackgroundColor=none;fillColor=#8C8496;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#736782;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;verticalAlign=middle;arcSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+            <mxGeometry x="-180" y="790" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="BI Analyst" c4Type="Person" c4Description="BI analysts" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-15">
+          <mxCell style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="740" y="430" width="200" height="180" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Visits reports" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-16">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-15" target="xwTnwCVL1f1_XoSpeWpY-10">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="310" y="750" as="sourcePoint" />
+              <mxPoint x="550" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Description="Query business model view" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-17">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-10" target="xwTnwCVL1f1_XoSpeWpY-8">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="490" y="790" as="sourcePoint" />
+              <mxPoint x="490" y="910" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Technology="JDBC" c4Description="Read" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-18">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;entryX=1;entryY=0.392;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-8" target="xwTnwCVL1f1_XoSpeWpY-9">
+            <mxGeometry x="0.4911" y="-17" width="240" relative="1" as="geometry">
+              <mxPoint x="310" y="750" as="sourcePoint" />
+              <mxPoint x="550" y="750" as="targetPoint" />
+              <mxPoint as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Technology="TCP/Pulsar" c4Description="Consumes" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-19">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-8" target="xwTnwCVL1f1_XoSpeWpY-13">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="240" y="830" as="sourcePoint" />
+              <mxPoint x="550" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Technology="TCP/Pulsar" c4Description="Consumes" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-20">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;dashed=1;dashPattern=8 8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-8" target="xwTnwCVL1f1_XoSpeWpY-14">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="250" y="830" as="sourcePoint" />
+              <mxPoint x="70" y="690" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" c4Technology="JSON/HTTP" c4Description="Request" label="&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;" id="xwTnwCVL1f1_XoSpeWpY-21">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;dashed=1;dashPattern=8 8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="xwTnwCVL1f1_XoSpeWpY-12" target="xwTnwCVL1f1_XoSpeWpY-8">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="270" y="880" as="sourcePoint" />
+              <mxPoint x="270" y="960" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="xwTnwCVL1f1_XoSpeWpY-22" value="&lt;font style=&quot;color: light-dark(rgb(231, 8, 8), rgb(237, 237, 237)); font-size: 52px;&quot;&gt;CONFLUENCE&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="540" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
