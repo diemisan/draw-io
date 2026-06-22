@@ -1,0 +1,830 @@
+<mxfile host="65bd71144e">
+    <diagram name="1. C4 Context" id="c4l1">
+        <mxGraphModel dx="1177" dy="694" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="Bet Ticker / History Enricher — System Context (C4 Level 1)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="45" y="50" width="900" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-place" value="&lt;b style=&quot;font-size:13px&quot;&gt;Bet Placement Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Captura, valida, debita wallet.&lt;br&gt;Emite Captured / Accepted /&lt;br&gt;Placed / Rejected / Failed /&lt;br&gt;Rollback." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="110" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-settle" value="&lt;b style=&quot;font-size:13px&quot;&gt;Bet Settlement Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Grada legs/bets y liquida wallet.&lt;br&gt;Emite LegGraded, BetGraded,&lt;br&gt;BetSettled, SettlementFailed." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="355" y="110" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-catalog" value="&lt;b style=&quot;font-size:13px&quot;&gt;Offer Catalog Services&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Publica catálogos vía Pulsar:&lt;br&gt;Sports, Tournaments, Fixtures,&lt;br&gt;Markets, Competitors,&lt;br&gt;Market Definitions." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="670" y="110" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="sys" value="&lt;b style=&quot;font-size:15px&quot;&gt;Bet Ticker / History Enricher&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System — Apache Flink 1.18 + Pulsar Connector]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Pipeline streaming de 4 capas:&lt;br&gt;&lt;b&gt;Ingestion → Bet Status Manager → Bet Enricher → Sink&lt;/b&gt;&lt;br&gt;&lt;br&gt;Construye EnrichedBet (snapshots completos) a partir de eventos&lt;br&gt;de placement y settlement, publica al topic &lt;i&gt;enriched-bets&lt;/i&gt;." style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;strokeWidth=4;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="370" width="930" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-pulsar-out" value="&lt;b style=&quot;font-size:13px&quot;&gt;Pulsar enriched-bets&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Topic, compactado]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Changelog de EnrichedBets.&lt;br&gt;Consumido por StarRocks, Splunk,&lt;br&gt;UI gateway, analytics." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="355" y="630" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-dlq" value="&lt;b style=&quot;font-size:13px&quot;&gt;Pulsar DLQ Topics&lt;/b&gt;&lt;br&gt;&lt;i&gt;[2 topics dedicados]&lt;/i&gt;&lt;br&gt;&lt;br&gt;dlq.enrichment-failed&lt;br&gt;dlq.invalid-transitions&lt;br&gt;(sub-código INVALID_FROM_STATE&lt;br&gt;o MISSING_PREREQUISITE)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="630" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-sr" value="&lt;b style=&quot;font-size:13px&quot;&gt;StarRocks&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Serving layer.&lt;br&gt;Consume enriched-bets,&lt;br&gt;persiste con PK upsert." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="630" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ex-ui" value="&lt;b style=&quot;font-size:13px&quot;&gt;Bet Ticker UI&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Splunk]&lt;/i&gt;&lt;br&gt;&lt;br&gt;UI tiempo real que proyecta el último estado de cada apuesta" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="355" y="850" width="280" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="p-trader" value="&lt;b style=&quot;font-size:13px&quot;&gt;Trader&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Monitorea apuestas, ajusta&lt;br&gt;líneas, suspende mercados." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="885" width="230" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="a1" value="Placement events" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ex-place" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a2" value="Settlement events" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ex-settle" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a3" value="Catalog events" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ex-catalog" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a4" value="Publica EnrichedBet" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="sys" target="ex-pulsar-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a5" value="Side outputs" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="sys" target="ex-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a6" value="Stores" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ex-pulsar-out" target="ex-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a7" value="Projects" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ex-pulsar-out" target="ex-ui" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a8" value="Lecturas históricas&lt;br&gt;[JDBC ad-on]" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ex-ui" target="ex-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a9" value="Visualiza" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="p-trader" target="ex-ui" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Lazy Loading" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="sys" target="ex-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="100" y="590" as="sourcePoint"/>
+                        <mxPoint x="520" y="860" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="2. C4 Containers" id="c4l2">
+        <mxGraphModel dx="1707" dy="1407" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1500" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="Bet Ticker / History Enricher — Containers (C4 Level 2)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="-10" width="1420" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="bnd" value="Bet Ticker / History Enricher (System Boundary)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 6;fillColor=none;strokeColor=#1F4E79;strokeWidth=2;verticalAlign=top;align=left;fontSize=12;fontColor=#1F4E79;fontStyle=1;spacingLeft=12;spacingTop=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="70" width="800" height="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="t-place" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar — Placement Topics&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Apache Pulsar, 6 topics]&lt;/i&gt;&lt;br&gt;&lt;br&gt;bet.captured.v1&lt;br&gt;bet.accepted.v1&lt;br&gt;bet.placed.v1&lt;br&gt;bet.rejected.v1&lt;br&gt;bet.failed.v1&lt;br&gt;bet.rollback.v1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="75" y="77" width="210" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="t-settle" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar — Settlement Topic&lt;/b&gt;&lt;br&gt;&lt;i&gt;[1 topic, 4 ce-types]&lt;/i&gt;&lt;br&gt;&lt;br&gt;settlement-events:&lt;br&gt;• leg.graded.v1&lt;br&gt;• bet.graded.v1&lt;br&gt;• bet.settled.v1&lt;br&gt;• bet.settlement-failed.v1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="75" y="247" width="205" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="t-cat" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar — Catalog Topics&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Pulsar, compactados]&lt;/i&gt;&lt;br&gt;&lt;br&gt;catalog.sports&lt;br&gt;catalog.tournaments&lt;br&gt;catalog.market-definitions&lt;br&gt;catalog.fixtures&lt;br&gt;catalog.markets&lt;br&gt;catalog.competitors" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="75" y="397" width="205" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-flink" value="&lt;b style=&quot;font-size:13px&quot;&gt;Bet Enricher Flink Job&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Apache Flink 1.18 / Java 17 / Pulsar-Flink connector]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Pipeline streaming en 4 capas:&lt;br&gt;Ingestion → Bet Status Manager →&lt;br&gt;Bet Enricher → Sink (Pulsar)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="120" width="720" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-rocks" value="&lt;b style=&quot;font-size:12px&quot;&gt;RocksDB State Backend&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Embedded LSM]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Keyed state Status Manager +&lt;br&gt;Broadcast state Enricher.&lt;br&gt;Checkpoints incrementales." style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="350" width="340" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-s3" value="&lt;b style=&quot;font-size:12px&quot;&gt;Checkpoint Store&lt;/b&gt;&lt;br&gt;&lt;i&gt;[S3 / MinIO]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Snapshots durables&lt;br&gt;cada 60 s." style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="500" width="170" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-metrics" value="&lt;b style=&quot;font-size:12px&quot;&gt;Metrics / Logs&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Prometheus + Grafana]&lt;/i&gt;&lt;br&gt;&lt;br&gt;MetricReporter + logs estructurados." style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="500" width="160" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="t-out" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar — enriched-bets&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Topic, compactado]&lt;/i&gt;&lt;br&gt;&lt;br&gt;persistent://data/betting/enriched-bets&lt;br&gt;&lt;br&gt;Key = bet_reference" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="350" width="340" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="t-dlq" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar — DLQ Topics&lt;/b&gt;&lt;br&gt;&lt;i&gt;[2 topics]&lt;/i&gt;&lt;br&gt;&lt;br&gt;dlq.enrichment-failed&lt;br&gt;dlq.invalid-transitions&lt;br&gt;(sub-código INVALID_FROM_STATE&lt;br&gt;o MISSING_PREREQUISITE)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="480" width="340" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-sr" value="&lt;b style=&quot;font-size:12px&quot;&gt;StarRocks&lt;/b&gt;&lt;br&gt;&lt;i&gt;[MPP OLAP, archivo histórico]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Consume enriched-bets,&lt;br&gt;persiste con PK upsert.&lt;br&gt;Sirve queries históricas&lt;br&gt;a la UI.&lt;br&gt;Fuente de rehidratación&lt;br&gt;lazy para el Flink job." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1205" y="210" width="200" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-ui" value="&lt;b style=&quot;font-size:12px&quot;&gt;Bet Ticker UI&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Splunk]&lt;/i&gt;&lt;br&gt;&lt;br&gt;UI tiempo real:&lt;br&gt;projecta el último estado&lt;br&gt;de cada apuesta&lt;br&gt;consumiendo enriched-bets.&lt;br&gt;Históricos vía JDBC add-on&lt;br&gt;contra StarRocks." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1200" y="420" width="210" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="consume" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" parent="1" source="t-place" target="c-flink" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="consume" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="t-settle" target="c-flink" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="broadcast" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" parent="1" source="t-cat" target="c-flink" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" value="state R/W" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c-flink" target="c-rocks" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" value="checkpoint" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c-rocks" target="c-s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" value="metrics" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c-rocks" target="c-metrics" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" value="emit EnrichedBet" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c-flink" target="t-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" value="side outputs" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c-flink" target="t-dlq" edge="1">
+                    <mxGeometry x="0.3335" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e9" value="Stores" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="t-out" target="c-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" value="Projects" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="t-out" target="c-ui" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" value="Lecturas históricas&#xa;[JDBC add-on]" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="c-ui" target="c-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" value="Lazy Loading" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=none;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" parent="1" source="c-flink" target="c-sr" edge="1">
+                    <mxGeometry x="0.0027" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="3. C4 Components" id="c4l3">
+        <mxGraphModel dx="1681" dy="1239" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1820" pageHeight="1310" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="Bet Enricher Flink Job — Components by Layer (C4 Level 3)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="63" y="-98" width="968" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="lh1" value="CAPA 1 — Ingestion  (sin watermarks ni dedupe; el event sourcing de Capa 2 los reemplaza)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;spacingLeft=12;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="-30" width="998" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=#9BC2E6;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="6" width="998" height="295" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-src" value="&lt;b style=&quot;font-size:12px&quot;&gt;PulsarSources&lt;/b&gt;&lt;br&gt;&lt;i&gt;[6 placement + 1 settlement + 6 catalog topics]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Cada source deserializa CloudEvent JSON" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="128" y="49.5" width="244" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-can" value="&lt;b style=&quot;font-size:12px&quot;&gt;Combine&lt;/b&gt;&lt;br&gt;&lt;i&gt;[MapFunction por topic + union]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Emite POJO BetEvent (con eventType&lt;br&gt;discriminador) y POJO CatalogUpdate" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="545" y="46.5" width="243" height="97" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-out1" value="&lt;b&gt;BetEvent&lt;/b&gt;&lt;br&gt;(POJO)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="484.5" y="217" width="175" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-out2" value="&lt;b&gt;CatalogUpdate&lt;/b&gt;&lt;br&gt;(POJO, broadcast)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="697" y="217" width="174" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="lh2" value="CAPA 2 — Bet Status Manager  (event sourcing + state machine + replay)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;spacingLeft=12;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="330" width="1006" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=#9BC2E6;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="366" width="1006" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-s1" value="&lt;b style=&quot;font-size:11px&quot;&gt;ValueState&amp;lt;BetProjection&amp;gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Snapshot acumulado&lt;br&gt;TTL 90 días post-terminal" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="81" y="378" width="157" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-s2" value="&lt;b style=&quot;font-size:11px&quot;&gt;MapState&amp;lt;Long, BetEvent&amp;gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;eventLog canónico por bet&lt;br&gt;(habilita replay)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="463" width="158" height="63" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-mgr" value="&lt;b style=&quot;font-size:13px&quot;&gt;BetStatusManager&lt;/b&gt;&lt;br&gt;&lt;i&gt;[KeyedProcessFunction, keyBy(betReference)]&lt;/i&gt;&lt;br&gt;&lt;br&gt;1. Dedup por (betRef, seq)&lt;br&gt;2. Rehidratación lazy si state vacío&lt;br&gt;3. Validar state machine&lt;br&gt;4. Insertar en eventLog&lt;br&gt;5. Replay si late event&lt;br&gt;6. Aplicar dispatcher&lt;br&gt;7. Emitir BetProjection" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="414" y="389" width="316" height="171" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-reh" value="&lt;b style=&quot;font-size:11px&quot;&gt;Rehidratación lazy&lt;/b&gt;&lt;br&gt;&lt;i&gt;[JDBC contra StarRocks]&lt;/i&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="83" y="540" width="157" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-dlq1" value="side: invalid-transitions&lt;br&gt;(INVALID_FROM_STATE /&lt;br&gt;MISSING_PREREQUISITE)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="867" y="402" width="167" height="57" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-out" value="&lt;b&gt;BetProjection&lt;/b&gt;&lt;br&gt;(enrichment = PENDING)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="492.5" y="609" width="161" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="lh3" value="CAPA 3 — Bet Enricher  (todas las dims globales en broadcast como List&lt;Version&gt; ordenada por validFromMs; sólo punter como keyed state)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;spacingLeft=12;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="720" width="1008" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=#9BC2E6;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="756" width="1009" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-bs" value="&lt;b style=&quot;font-size:11px&quot;&gt;Broadcast State GLOBAL&lt;/b&gt;&lt;br&gt;&lt;i&gt;[MapState&amp;lt;String, List&amp;lt;*Version&amp;gt;&amp;gt;]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Sport / Tournament / MarketDef /&lt;br&gt;Fixture / Market / Competitor&lt;br&gt;(+ Operator/Brand/Offering opc.)&lt;br&gt;&lt;br&gt;Cada List ordenada por validFromMs.&lt;br&gt;Lookup vía VersionLookup.floor(list, ts)&lt;br&gt;(búsqueda binaria, ≈ TreeMap.floorEntry).&lt;br&gt;NO se usa TreeMap: Flink no lo serializa nativamente." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="780" width="280" height="126" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-punter" value="&lt;b style=&quot;font-size:11px&quot;&gt;Keyed state: punterCache&lt;/b&gt;&lt;br&gt;&lt;i&gt;[ValueState&amp;lt;PunterProfile&amp;gt; + TTL]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Única dim ESPECÍFICA (no broadcast)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="920" width="280" height="79" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-enr" value="&lt;b style=&quot;font-size:13px&quot;&gt;BetEnricher&lt;/b&gt;&lt;br&gt;&lt;i&gt;[KeyedBroadcastProcessFunction]&lt;/i&gt;&lt;br&gt;keyBy(betReference) + broadcast(catalogs)&lt;br&gt;&lt;br&gt;Si SUCCESS → passthrough.&lt;br&gt;Si PENDING → resuelve todas las dims&lt;br&gt;con VersionLookup.floor(list, ce-time)&lt;br&gt;+ retry exponencial." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="423" y="808" width="300" height="137" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-retry" value="&lt;b style=&quot;font-size:11px&quot;&gt;Retry Buffer&lt;/b&gt;&lt;br&gt;&lt;i&gt;[ValueState&amp;lt;EnrichmentRequest&amp;gt;]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Backoff 1,2,4,8,16,32,60,60 s&lt;br&gt;Máx 8 intentos.&lt;br&gt;Drenado oportunista al llegar&lt;br&gt;nueva entrada al catálogo." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=center;verticalAlign=middle;fontSize=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="689" y="964" width="174" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-lazy" value="&lt;b style=&quot;font-size:11px&quot;&gt;Lazy Loading&lt;/b&gt;&lt;br&gt;&lt;i&gt;[JDBC contra StarRocks]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Broadcast state miss (TTL evicted /&lt;br&gt;versión nunca recibida) o punterCache miss" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="1013" width="282" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-dlq" value="side: enrichment-failed" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="831" y="818" width="141" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-out" value="&lt;b&gt;EnrichedBet&lt;/b&gt;&lt;br&gt;(enrichment = SUCCESS)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="489" y="981" width="168" height="69" as="geometry"/>
+                </mxCell>
+                <mxCell id="lh4" value="CAPA 4 — Sink  (sólo Pulsar; StarRocks externo atiende lazy load de Capa 2 y Capa 3)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;spacingLeft=12;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="1150" width="1010" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=#9BC2E6;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="1186" width="1011" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-pul" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar Sink — enriched-bets&lt;/b&gt;&lt;br&gt;&lt;i&gt;[PulsarSink, Pulsar-Flink connector]&lt;/i&gt;&lt;br&gt;Topic compactado, Key = bet_reference" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="482" y="1202" width="306" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-dlq" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar DLQ Sinks (× 2)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[PulsarSink × 2]&lt;/i&gt;&lt;br&gt;dlq.enrichment-failed&lt;br&gt;dlq.invalid-transitions" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="817" y="1202" width="235" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-sr" value="&lt;b style=&quot;font-size:12px&quot;&gt;StarRocks&lt;/b&gt;&lt;br&gt;&lt;i&gt;[externo al job — consumidor de enriched-bets]&lt;/i&gt;&lt;br&gt;Archiva enriched-bets · sirve queries históricas a la UI · &lt;br&gt;atiende JDBC Lazy Loading de Capa 2 (enriched_bets)&lt;br&gt;y Capa 3 (offer.*_history + punter.profile_dim)." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="139" y="1206" width="324" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c1-1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c1-src" target="c1-can" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c1-2" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c1-can" target="c1-out1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c1-3" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;strokeWidth=2;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c1-can" target="c1-out2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-12" value="keyBy(betRef)" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c1-out1" target="c2-mgr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-13" value="broadcast(CatalogUpdate)" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c1-out2" target="c3-enr" edge="1">
+                    <mxGeometry x="0.4372" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="784" y="808"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-c2-rw1" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;exitX=0;exitY=0.15;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c2-mgr" target="c2-s1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c2-rw2" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c2-mgr" target="c2-s2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c2-reh" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c2-s1" target="c2-reh" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c2-side1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c2-mgr" target="c2-dlq1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c2-out" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c2-mgr" target="c2-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-23" value="reinterpretAsKeyedStream" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c2-out" target="c3-enr" edge="1">
+                    <mxGeometry x="-0.4894" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-c3-rw1" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c3-enr" target="c3-bs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-rw2" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;exitX=0.011;exitY=0.537;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="c3-enr" target="c3-punter" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-rw3" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-enr" target="c3-retry" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-side" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c3-enr" target="c3-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-out" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-enr" target="c3-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-34" value="EnrichedBet" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-out" target="c4-pul" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-dlq-c2-1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c2-dlq1" target="c4-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-dlq-c3" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.362;entryY=0.038;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="c3-dlq" target="c4-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-lazy" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c3-punter" target="c3-lazy" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-c3-lazy-sr" value="Lazy Loading (JDBC)" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-lazy" target="c4-sr" edge="1">
+                    <mxGeometry x="-0.5002" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="panel-dlq" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BBBBBB;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="1088" y="1116" width="460" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="panel-dlq-title" value="Side outputs DLQ — casos de emisión (2 topics)" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1F4E79;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="1088" y="1119" width="460" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="panel-dlq-it" value="&lt;b style=&quot;color:#C00000&quot;&gt;invalid-transitions&lt;/b&gt; (Capa 2) · 2 sub-códigos:&lt;br&gt;&lt;br&gt;&lt;b&gt;INVALID_FROM_STATE&lt;/b&gt; — transición prohibida por la state machine:&lt;br&gt;• BetAccepted/BetPlaced sin BetCaptured previo · LegGraded tras Rejected · duplicado de BetCaptured con payload distinto.&lt;br&gt;&lt;br&gt;&lt;b&gt;MISSING_PREREQUISITE&lt;/b&gt; — evento bufferado en eventLog cuyo prerequisito jamás llegó tras timer (ej. 30 min):&lt;br&gt;• BetSettled esperando BetPlaced · LegGraded con legId desconocido.&lt;br&gt;&lt;br&gt;Causa raíz: producer del dominio reordena, duplica o dropea eventos." style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#1A1A1A;whiteSpace=wrap;spacingLeft=10;spacingTop=4;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="1088" y="1141" width="460" height="135" as="geometry"/>
+                </mxCell>
+                <mxCell id="panel-dlq-ef" value="&lt;b style=&quot;color:#C00000&quot;&gt;enrichment-failed&lt;/b&gt; (Capa 3):&lt;br&gt;Dim no resoluble tras 8 retries: fixture/market/competitor no existe en broadcast ni StarRocks, o punter desconocido. Causa: catálogo desincronizado." style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#1A1A1A;whiteSpace=wrap;spacingLeft=10;spacingTop=4;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="1088" y="1276" width="460" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="1G1DAvk29_kCyiiOPD6u-1" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c3-bs" target="c3-lazy" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="90" y="970" as="sourcePoint"/>
+                        <mxPoint x="90" y="1068" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="1G1DAvk29_kCyiiOPD6u-2" value="Lazy Loading (JDBC)" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="c2-reh" target="c4-sr" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="40" y="637"/>
+                            <mxPoint x="40" y="1256"/>
+                        </Array>
+                        <mxPoint x="101" y="698" as="sourcePoint"/>
+                        <mxPoint x="230" y="1216" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="4. Job Graph" id="jobgraph">
+        <mxGraphModel dx="1707" dy="1007" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1800" pageHeight="1280" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="Job Graph — 10 tipos de evento × 4 capas" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="20" width="1720" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ch1" value="CAPA 1 — Ingestion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="80" width="400" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="ch2" value="CAPA 2 — Status Manager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="80" width="380" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="ch3" value="CAPA 3 — Bet Enricher" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="80" width="460" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="ch4" value="CAPA 4 — Sink (sólo Pulsar)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1350" y="80" width="420" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="116" width="400" height="1040" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="116" width="380" height="708" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="116" width="460" height="710" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F7FC;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1350" y="116" width="420" height="1040" as="geometry"/>
+                </mxCell>
+                <mxCell id="sg-p" value="Placement (6 topics)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=4 4;fillColor=none;strokeColor=#548235;verticalAlign=top;align=left;fontSize=10;fontColor=#548235;fontStyle=1;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="140" width="360" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-cap" value="Src bet.captured.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="170" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-acc" value="Src bet.accepted.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="210" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-pla" value="Src bet.placed.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="250" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-rej" value="Src bet.rejected.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="290" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-fai" value="Src bet.failed.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="330" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-rol" value="Src bet.rollback.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="370" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="sg-s" value="Settlement (1 topic, 4 ce-type)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=4 4;fillColor=none;strokeColor=#7030A0;verticalAlign=top;align=left;fontSize=10;fontColor=#7030A0;fontStyle=1;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="450" width="360" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-leg" value="leg.graded.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7030A0;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="480" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-bgr" value="bet.graded.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7030A0;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="520" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-set" value="bet.settled.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7030A0;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="560" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-sfa" value="bet.settlement-failed.v1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7030A0;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="600" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-norm" value="&lt;b style=&quot;font-size:12px&quot;&gt;Combine (no watermarks, no dedupe)&lt;/b&gt;&lt;br&gt;&lt;br&gt;Emite POJO BetEvent" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="690" width="320" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sg-c" value="Catalog topics (broadcast)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=4 4;fillColor=none;strokeColor=#2E75B6;verticalAlign=top;align=left;fontSize=10;fontColor=#2E75B6;fontStyle=1;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="800" width="360" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-c1" value="catalog.sports" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="830" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-c2" value="catalog.tournaments" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="870" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-c3" value="catalog.market-definitions" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="910" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-c4" value="catalog.fixtures" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="950" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-c5" value="catalog.markets / competitors" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="990" width="320" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1-cat" value="&lt;b style=&quot;font-size:11px&quot;&gt;Combine → CatalogUpdate&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="1060" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-keyby" value="keyBy(betReference)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="170" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-bsm" value="&lt;b style=&quot;font-size:13px&quot;&gt;BetStatusManager&lt;/b&gt;&lt;br&gt;&lt;i&gt;[KeyedProcessFunction]&lt;/i&gt;&lt;br&gt;&lt;br&gt;• Dedup por (betRef, seq)&lt;br&gt;• Validar state machine&lt;br&gt;• Replay desde eventLog&lt;br&gt;• Rehidratación lazy JDBC&lt;br&gt;  contra StarRocks&lt;br&gt;• Dispatcher por tipo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=top;strokeWidth=2;spacingTop=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="311.5" width="340" height="246.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-state" value="&lt;b style=&quot;font-size:11px&quot;&gt;Keyed State&lt;/b&gt;&lt;br&gt;&lt;br&gt;ValueState&amp;lt;BetProjection&amp;gt;&lt;br&gt;MapState&amp;lt;Long, BetEvent&amp;gt;&lt;br&gt;ValueState&amp;lt;lastAppliedSeq&amp;gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="558" y="457" width="190" height="79" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-side1" value="side: invalid-transitions&#xa;(INVALID_FROM_STATE / MISSING_PREREQUISITE)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;fontSize=10;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="491" y="627" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2-out" value="&lt;b&gt;Emite BetProjection&lt;/b&gt;&lt;br&gt;(enrichment = PENDING)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="627" width="151" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-rein" value="reinterpretAsKeyedStream&#xa;(sin shuffle)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;fontSize=10;fontStyle=2;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1084" y="179" width="232" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-bcast" value="&lt;b style=&quot;font-size:11px&quot;&gt;union → broadcast(CatalogUpdate)&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="886" y="177" width="181" height="71" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-enr" value="&lt;b style=&quot;font-size:13px&quot;&gt;BetEnricher&lt;/b&gt;&lt;br&gt;&lt;i&gt;[KeyedBroadcastProcessFunction]&lt;/i&gt;&lt;br&gt;&lt;br&gt;• Passthrough si SUCCESS&lt;br&gt;• Si PENDING: lookup uniforme&lt;br&gt;  con VersionLookup.floor(list, ce-time)&lt;br&gt;  sobre broadcast state&lt;br&gt;• Retry exponencial backoff" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=top;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="882" y="309" width="428" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-bs" value="&lt;b style=&quot;font-size:11px&quot;&gt;Broadcast State GLOBAL&lt;/b&gt;&lt;br&gt;sport, tournament, marketDef,&lt;br&gt;fixture, market, competitor&lt;br&gt;&lt;br&gt;MapState&amp;lt;String, List&amp;lt;Version&amp;gt;&amp;gt;&lt;br&gt;(ordenada por validFromMs)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="897" y="434" width="146" height="91" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-punter" value="&lt;b style=&quot;font-size:11px&quot;&gt;ValueState&amp;lt;Punter&amp;gt;&lt;/b&gt;&lt;br&gt;(keyed, ESPECÍFICO)&lt;br&gt;&lt;br&gt;Fuente: punter topic" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=center;verticalAlign=middle;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="1160" y="432" width="134" height="93" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-side" value="side: enrichment-failed" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;fontSize=10;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="926" y="604" width="128" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3-out" value="&lt;b&gt;Emite EnrichedBet&lt;/b&gt;&lt;br&gt;(enrichment = SUCCESS)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1132" y="587" width="141" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-pul" value="&lt;b style=&quot;font-size:12px&quot;&gt;Pulsar Sink&lt;/b&gt;&lt;br&gt;enriched-bets&lt;br&gt;(compactado, key=bet_reference)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1375" y="309" width="380" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-dlq" value="&lt;b style=&quot;font-size:12px&quot;&gt;DLQ Sinks (Pulsar × 2)&lt;/b&gt;&lt;br&gt;dlq.enrichment-failed&lt;br&gt;dlq.invalid-transitions" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1380" y="437" width="380" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4-sr-ext" value="&lt;b style=&quot;font-size:12px&quot;&gt;StarRocks&lt;/b&gt;&lt;br&gt;&lt;i&gt;[externo — consumidor de enriched-bets]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Archiva el topic, sirve queries históricas,&lt;br&gt;y atiende el JDBC Lazy Loading del&lt;br&gt;Bet Status Manager (Capa 2) y Bet Enricher (capa 3)." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;fontSize=11;align=center;verticalAlign=middle;strokeWidth=2;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="486" y="880" width="814" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-lazy" value="Lazy Loading&#xa;(JDBC, rehidratación)" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c2-bsm" target="c4-sr-ext" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="886" y="1147.5" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-p1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#548235;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="sg-p" target="c1-norm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-s4" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#7030A0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="sg-s" target="c1-norm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="sg-c" target="c1-cat" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-12" value="BetEvent" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c1-norm" target="c2-keyby" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-13" value="CatalogUpdate" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="c1-cat" target="c3-bcast" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="448" y="1085"/>
+                            <mxPoint x="448" y="846"/>
+                            <mxPoint x="862" y="846"/>
+                            <mxPoint x="862" y="212"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-2a" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;" parent="1" source="c2-keyby" target="c2-bsm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-2c" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c2-bsm" target="c2-side1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-2e" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c2-bsm" target="c2-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-23" value="BetProjection" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c2-out" target="c3-rein" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="848" y="657"/>
+                            <mxPoint x="848" y="151"/>
+                            <mxPoint x="1200" y="151"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-23b" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-rein" target="c3-enr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-bc" value="broadcast" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2E75B6;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-bcast" target="c3-enr" edge="1">
+                    <mxGeometry x="-0.0132" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-3c" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c3-enr" target="c3-side" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-3d" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c3-enr" target="c3-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-34" value="EnrichedBet" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="c3-out" target="c4-pul" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-dlq1" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c2-side1" target="c4-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="567" y="717"/>
+                            <mxPoint x="1570" y="717"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-dlq3" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="c3-side" target="c4-dlq" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="88_8g11z231I60H8J-px-1" value="Lazy Loading&#xa;(JDBC, rehidratación)" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#1F4E79;strokeWidth=2;dashed=1;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="c3-enr" target="c4-sr-ext" edge="1">
+                    <mxGeometry x="0.459" relative="1" as="geometry">
+                        <mxPoint x="490" y="568" as="sourcePoint"/>
+                        <mxPoint x="678" y="1012" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Omf20KzJiIZ5Krke4ZfU-1" value="&lt;b style=&quot;font-size:11px&quot;&gt;Caffeine&amp;lt;Old market&amp;gt;&lt;/b&gt;&lt;br&gt;(keyed, GLOBAL)&lt;br&gt;&lt;br&gt;Fuente: Starrocks" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=center;verticalAlign=middle;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="1050" y="435.5" width="100" height="88" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="5. State Machine" id="state">
+        <mxGraphModel dx="1177" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="Bet Lifecycle — UML State Machine (BetProjection.bet.betStatus)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="20" width="1320" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="init" style="ellipse;fillColor=#1A1A1A;strokeColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="200" width="28" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-req" value="&lt;b style=&quot;font-size:13px&quot;&gt;Requested&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetCaptured]" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="180" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-acc" value="&lt;b style=&quot;font-size:13px&quot;&gt;Accepted&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetAccepted]" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="180" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-pla" value="&lt;b style=&quot;font-size:13px&quot;&gt;Placed&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetPlaced]&lt;br&gt;wallet debited" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="170" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-set" value="&lt;b style=&quot;font-size:13px&quot;&gt;Settled&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetSettled]&lt;br&gt;wallet credited" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="170" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-rej" value="&lt;b style=&quot;font-size:13px&quot;&gt;Rejected&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetRejected]&lt;br&gt;&lt;i&gt;terminal&lt;/i&gt;" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="420" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="s-fai" value="&lt;b style=&quot;font-size:13px&quot;&gt;Failed&lt;/b&gt;&lt;br&gt;&lt;br&gt;[BetFailed / BetRollback]&lt;br&gt;&lt;i&gt;terminal&lt;/i&gt;" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="420" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="final-outer" style="ellipse;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1278" y="200" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="final-inner" style="ellipse;fillColor=#1A1A1A;strokeColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1286" y="208" width="16" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr1" value="BetCaptured" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="init" target="s-req" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr2" value="BetAccepted" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="s-req" target="s-acc" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr3" value="BetPlaced" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="s-acc" target="s-pla" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr4" value="BetSettled (post-BetGraded)" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#548235;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="s-pla" target="s-set" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr5" value="BetRejected" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="s-req" target="s-rej" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr6" value="BetRejected" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=0;entryDx=0;entryDy=0;" parent="1" source="s-acc" target="s-rej" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr7" value="BetFailed / BetRollback" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#C00000;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="s-acc" target="s-fai" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tr8" value="LegGraded / BetGraded /&#xa;BetSettlementFailed&#xa;(NO cambian betStatus)" style="endArrow=classic;html=1;strokeColor=#BF8F00;strokeWidth=2;fontSize=10;fontStyle=2;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;curved=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="800" y="170" as="sourcePoint"/>
+                        <mxPoint x="900" y="170" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="800" y="110"/>
+                            <mxPoint x="900" y="110"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="tr9" value="BetSettled re-settle&#xa;(previousSettlementId)" style="endArrow=classic;html=1;strokeColor=#548235;strokeWidth=2;fontSize=10;fontStyle=2;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;curved=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1080" y="170" as="sourcePoint"/>
+                        <mxPoint x="1180" y="170" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1080" y="110"/>
+                            <mxPoint x="1180" y="110"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="tr10" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#666666;dashed=1;" parent="1" source="s-set" target="final-outer" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="note" value="&lt;b&gt;Notas&lt;/b&gt;&lt;br&gt;&lt;br&gt;• Estados &lt;b style=&quot;color:#548235&quot;&gt;verdes&lt;/b&gt; = éxito. Estados &lt;b style=&quot;color:#C00000&quot;&gt;rojos&lt;/b&gt; = terminales de error.&lt;br&gt;• &lt;b&gt;LegGraded&lt;/b&gt; / &lt;b&gt;BetGraded&lt;/b&gt; / &lt;b&gt;BetSettlementFailed&lt;/b&gt; aplican sobre Placed pero NO cambian betStatus.&lt;br&gt;• &lt;b&gt;Re-settle&lt;/b&gt;: un BetSettled con previousSettlementId != null sobrescribe la liquidación previa.&lt;br&gt;• Eventos posteriores a un estado terminal van al side output &lt;b&gt;invalid-transitions&lt;/b&gt;." style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fillColor=#FAFAFA;strokeColor=#BBBBBB;fontColor=#1A1A1A;rounded=0;spacingLeft=12;spacingTop=10;spacingRight=10;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="600" width="1080" height="160" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="6. EnrichedBet Class" id="er">
+        <mxGraphModel dx="1707" dy="1007" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t" value="EnrichedBet / BetProjection — UML Class Diagram (POJOs Flink 1.18)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="20" width="1720" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="subt" value="BetProjection (Capa 2 → Capa 3, enrichment=PENDING) ≡ EnrichedBet (Capa 3 → Capa 4, enrichment=SUCCESS). Mismo POJO, distinta bandera." style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=2;fontColor=#595959;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="60" width="1720" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="r-h" value="BetProjection (POJO)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="110" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r-b" value="+ betReference: String (key)&#xa;+ ticketId: String? (null hasta Placed)&#xa;+ betslipId: String&#xa;+ operatorId / brandId / offeringId: Integer&#xa;+ punterId: String&#xa;+ acceptOddsChangesMode: String&#xa;+ client{Language, Locale, OddsFormat, Currency}&#xa;+ clientDisplayed{Stake, ToWin, Payout}&#xa;+ capturedMetadata: CapturedMetadata&#xa;+ metadata: ProcessingMetadata&#xa;+ punter: PunterRef&#xa;+ bet: Bet" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#1F4E79;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="150" width="380" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="pm-h" value="ProcessingMetadata" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="410" width="380" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="pm-b" value="+ srcEventId, srcEventType: String&#xa;+ srcTimeMs: long&#xa;+ enrichment: String  (PENDING|PARTIAL|SUCCESS|FAILED)&#xa;+ retry, version: int&#xa;+ lastAppliedSeq: long&#xa;+ lastEventTypeOrder: int&#xa;+ enrichmentFailures: Map&lt;String, String&gt;&#xa;+ failure, rollback, settlementRetries" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="444" width="380" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="pr-h" value="PunterRef" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="650" width="380" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="pr-b" value="+ id: String&#xa;+ limits: PunterLimits?&#xa;   (null hasta Capa 3)" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="684" width="380" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="cm-h" value="CapturedMetadata" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="800" width="380" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="cm-b" value="+ channel, ipAddress, userAgent: String&#xa;+ fingerprint, referer: String&#xa;+ receivedAtMs: long" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="834" width="380" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="bet-h" value="Bet (POJO)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9BC2E6;strokeColor=#1F4E79;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="110" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="bet-b" value="+ reference: String (= betReference)&#xa;+ id: String? (null hasta Placed)&#xa;+ type: String  (BetType as String)&#xa;+ placedAtMs: Long?&#xa;+ stake: BigDecimal, currency: String&#xa;+ acceptedOdds: ComputedOdds&#xa;+ toWin, potentialPayout: BigDecimal&#xa;+ legs: List&lt;Leg&gt;&#xa;+ betStatus: String (BetStatus as String)&#xa;+ gradeStatusId: Integer&#xa;+ gradeStatusName: String&#xa;+ walletDebit: WalletDebit?&#xa;+ settlement: Settlement?&#xa;+ rejection: RejectionDetails?" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#1F4E79;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="150" width="380" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg-h" value="Leg (POJO)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C5E0B3;strokeColor=#548235;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="460" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg-b" value="+ id: String (legId)&#xa;+ type: String  (LegType)&#xa;+ position: int&#xa;+ acceptedOdds: ComputedOdds&#xa;+ gradeStatus: String  (GradingResult)&#xa;+ gradedAtMs: Long?, gradedBy: String?&#xa;+ selections: List&lt;Selection&gt;" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#548235;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="500" width="380" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="wd-h" value="WalletDebit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="700" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="wd-b" value="transactionId&#xa;transactedAtMs&#xa;previousBalance&#xa;updatedBalance" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=left;verticalAlign=top;strokeWidth=1;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="730" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="st-h" value="Settlement" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FCE4B6;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="700" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="st-b" value="result, settledBy&#xa;walletTransactionId&#xa;walletOperation&#xa;walletAmountValue&#xa;walletCurrency&#xa;settlementId&#xa;previousSettlementId" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=10;align=left;verticalAlign=top;strokeWidth=1;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="730" width="180" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="rj-h" value="RejectionDetails" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F4B6B0;strokeColor=#C00000;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="860" width="380" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rj-b" value="code, message, rejectedAtMs" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#C00000;fontColor=#1A1A1A;fontSize=10;align=left;verticalAlign=top;strokeWidth=1;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="890" width="380" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="sel-h" value="Selection (POJO)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="110" width="400" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sel-b" value="-- Desde evento (siempre presente) --&#xa;+ id: String  (selectionId)&#xa;+ fixtureId, marketId: String&#xa;+ isLive: Boolean&#xa;+ acceptedOdds: VersionedOdds&#xa;&#xa;-- Enrichment GLOBAL (null hasta Capa 3) --&#xa;+ sportId, sportName: String?&#xa;+ tournamentId, tournamentName: String?&#xa;+ fixture: Fixture?&#xa;+ market: Market?" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#BF8F00;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="150" width="400" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="fix-h" value="Fixture" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="420" width="400" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="fix-b" value="+ id, type, name: String&#xa;+ dateMs: long&#xa;+ phase: String  (PREMATCH, IN_PLAY, CONCLUDED)&#xa;+ status: String  (NOT_STARTED, STARTED, ...)&#xa;+ timeFrame: String  (FULL_TIME, ...)&#xa;+ clientName: String, clientDateMs: Long?&#xa;+ competitors: List&lt;Competitor&gt;" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="454" width="400" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="mkt-h" value="Market" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="640" width="400" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="mkt-b" value="+ id, defId, type, status&#xa;+ name, clientName&#xa;+ selectionStatus, selectionName, clientSelectionName&#xa;+ odds: VersionedOdds&#xa;+ clientOdds: VersionedOdds" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=top;strokeWidth=2;spacingLeft=8;spacingTop=8;spacingRight=8;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="674" width="400" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="cp-h" value="Competitor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="830" width="190" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="cp-b" value="id, name&#xa;clientName&#xa;position" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#1A1A1A;fontSize=10;align=left;verticalAlign=top;strokeWidth=1;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="860" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="vo-h" value="VersionedOdds" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E7E6E6;strokeColor=#595959;fontColor=#1A1A1A;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="830" width="190" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="vo-b" value="version&#xa;decimal, american&#xa;fractional&#xa;capturedAtMs" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#1A1A1A;fontSize=10;align=left;verticalAlign=top;strokeWidth=1;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="860" width="190" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp-cv" value="Broadcast state (Capa 3) — TODAS las dims globales con List&lt;Version&gt; ordenada por validFromMs" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=6 4;fillColor=none;strokeColor=#2E75B6;verticalAlign=top;align=left;fontSize=12;fontColor=#2E75B6;fontStyle=1;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="1400" y="110" width="380" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-sport" value="&lt;b&gt;SportVersion&lt;/b&gt;&lt;br&gt;id, name, sportType, ruleSet, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="150" width="340" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-tour" value="&lt;b&gt;TournamentVersion&lt;/b&gt;&lt;br&gt;id, name, sportId, categoryIds, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="215" width="340" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-mdef" value="&lt;b&gt;MarketDefVersion&lt;/b&gt;&lt;br&gt;id, name, type, timeFrame, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="280" width="340" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-fix" value="&lt;b&gt;FixtureVersion&lt;/b&gt;&lt;br&gt;id, type, name, dateMs, phase, status,&lt;br&gt;timeFrame, competitorIds, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="345" width="340" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-mkt" value="&lt;b&gt;MarketVersion&lt;/b&gt;&lt;br&gt;id, defId, type, status, name,&lt;br&gt;selectionStatus, odds, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="420" width="340" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-comp" value="&lt;b&gt;CompetitorVersion&lt;/b&gt;&lt;br&gt;id, name, clientName, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="495" width="340" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="cv-opt" value="&lt;b&gt;Operator / Brand / Offering (opcional)&lt;/b&gt;&lt;br&gt;id, name, parent, validFromMs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DEEBF7;strokeColor=#2E75B6;fontColor=#1A1A1A;fontSize=11;align=left;verticalAlign=middle;spacingLeft=10;strokeWidth=2;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="560" width="340" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="grp-se" value="Schema Evolution (Flink 1.18 + Pulsar)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=6 4;fillColor=none;strokeColor=#7030A0;verticalAlign=top;align=left;fontSize=12;fontColor=#7030A0;fontStyle=1;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="1400" y="660" width="380" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="se-note" value="• Java POJOs (no records).&#xa;• Constructor sin args + getters/setters.&#xa;• Tipos primitivos o Flink-serializables.&#xa;• Timestamps como long (epoch ms).&#xa;• Enums como String.&#xa;• Variantes con discriminador (eventType/catalogType) +&#xa;  campos opcionales por variante.&#xa;• Añadir campos = al final, opcionales.&#xa;• NO renombrar, NO cambiar tipos.&#xa;• AvroSerializer recomendado para state.&#xa;• disableGenericTypes() en producción." style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fillColor=#E1D5E7;strokeColor=#7030A0;fontColor=#1A1A1A;rounded=0;spacingLeft=10;spacingTop=8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="700" width="340" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-1" value="1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="r-b" target="bet-b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-2" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;" parent="1" source="r-b" target="pm-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-3" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="pm-b" target="pr-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-4" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="pr-b" target="cm-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-5" value="1..N" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="bet-b" target="leg-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-6" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="bet-b" target="wd-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-7" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="bet-b" target="st-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-8" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="st-b" target="rj-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-9" value="1..N" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="leg-b" target="sel-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-10" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="sel-b" target="fix-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-11" value="0..1" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="fix-b" target="mkt-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-12" value="0..N" style="endArrow=open;startArrow=diamondThin;startFill=1;startSize=14;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="fix-b" target="cp-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-13" value="uses" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=10;dashed=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="mkt-b" target="vo-h" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
